@@ -64,16 +64,28 @@ switch ($_GET['limit']) {
 $sth = $dbh->prepare('SELECT name, colour FROM fruit WHERE colour = :colour LIMIT ' . $limit);
 $sth->execute(array(':colour' => 'yellow'));
 ```
-
-Hashing passwords:
+Set connection to blow up on errors, and not let the script keep going silently.
 ```
-password_hash($password, \PASSWORD_ARGON2I); or password_hash($password, \PASSWORD_BCRYPT);
+$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+```
+or
+```
+$dbh = new PDO($dsn, $user, $password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
+```
+
+Hashing passwords:  
+```password_hash($password, \PASSWORD_ARGON2I);```
+or
+```password_hash($password, \PASSWORD_BCRYPT);```  
 Using the PASSWORD_BCRYPT as the algorithm, will result in the password parameter being truncated to a maximum length of 72 characters.
 
-password_verify($password, $hash);
+Check passwords:
+```password_verify($password, $hash);```
 
-Every now and then it is necessary to strengthen the hashing process.
-password_needs_rehash($hash, \PASSWORD_ARGON2I); or password_needs_rehash($hash, \PASSWORD_BCRYPT);
+Every now and then it is necessary to strengthen the hashing process.  
+```password_needs_rehash($hash, \PASSWORD_ARGON2I);```  
+or  
+```password_needs_rehash($hash, \PASSWORD_BCRYPT);```  
 Then prompt user to set a new password.
 
 \PASSWORD_BCRYPT:
@@ -84,7 +96,7 @@ Save as ??
 
 \PASSWORD_DEFAULT:
 255 is the recomended width
-```
+
 
 Never save credit card information!
 
