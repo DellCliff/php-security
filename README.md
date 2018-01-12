@@ -37,14 +37,14 @@ setcookie($name, false);
 unset($_COOKIE[$name]);
 ```
 
-Cookies: set http-only, secure, path, domain  
+Setting cookies:
 ```
 $secure = true;  
 $httponly = true;  
 setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
 ```
 
-## Sanatizing
+## Escaping
 
 For HTML: ```htmlspecialchars($data, \ENT_QUOTES, $encoding);```  
 For URL: ```urlencode($data);```
@@ -72,7 +72,7 @@ Using the PASSWORD_BCRYPT as the algorithm, will result in the password paramete
 
 password_verify($password, $hash);
 
-Every now and then might need to strengthen hashing.
+Every now and then it is necessary to strengthen the hashing process.
 password_needs_rehash($hash, \PASSWORD_ARGON2I); or password_needs_rehash($hash, \PASSWORD_BCRYPT);
 Then prompt user to set a new password.
 
@@ -112,6 +112,30 @@ ServerTokens Prod
 ```
 
 TODO: MOAR!
+
+
+## .htaccess
+```
+<ifModule mod_headers.c>  
+    Header set Referrer-Policy no-referrer  
+    Header set X-Frame-Options deny  
+    Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"  
+    Header set X-Content-Type-Options nosniff  
+    Header set X-XSS-Protection "1; mode=block"  
+    Header set X-Permitted-Cross-Domain-Policies none  
+    Header set Content-Security-Policy "script-src 'self'; object-src 'none'"  
+    Header set X-WebKit-CSP "script-src 'self'; object-src 'none'"  
+    Header set X-Content-Security-Policy "script-src 'self'; object-src 'none'"  
+    
+    Header unset X-Powered-By  
+</ifModule>  
+
+<ifModule ModSecurity.c>  
+    SecServerSignature ''  
+</ifModule>  
+```
+TODO: flags
+
 
 ## php.ini
 
@@ -170,25 +194,3 @@ session.use_strict_mode = 1
 session.bug_compat_42   = 0  
 session.bug_compat_warn = 1  
 ```
-
-## .htaccess
-```
-<ifModule mod_headers.c>  
-    Header set Referrer-Policy no-referrer  
-    Header set X-Frame-Options deny  
-    Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"  
-    Header set X-Content-Type-Options nosniff  
-    Header set X-XSS-Protection "1; mode=block"  
-    Header set X-Permitted-Cross-Domain-Policies none  
-    Header set Content-Security-Policy "script-src 'self'; object-src 'none'"  
-    Header set X-WebKit-CSP "script-src 'self'; object-src 'none'"  
-    Header set X-Content-Security-Policy "script-src 'self'; object-src 'none'"  
-    
-    Header unset X-Powered-By  
-</ifModule>  
-
-<ifModule ModSecurity.c>  
-    SecServerSignature ''  
-</ifModule>  
-```
-TODO: flags
