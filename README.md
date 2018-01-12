@@ -67,20 +67,20 @@ $sth->execute(array(':colour' => 'yellow'));
 
 Hashing passwords:
 ```
-password_hash($password, \PASSWORD_ARGON2I);
-or
-password_hash($password, \PASSWORD_BCRYPT);
+password_hash($password, \PASSWORD_ARGON2I); or password_hash($password, \PASSWORD_BCRYPT);
 Using the PASSWORD_BCRYPT as the algorithm, will result in the password parameter being truncated to a maximum length of 72 characters.
 
 password_verify($password, $hash);
 
 Every now and then might need to strengthen hashing.
-password_needs_rehash($hash, \PASSWORD_ARGON2I);
-password_needs_rehash($hash, \PASSWORD_BCRYPT);
+password_needs_rehash($hash, \PASSWORD_ARGON2I); or password_needs_rehash($hash, \PASSWORD_BCRYPT);
 Then prompt user to set a new password.
 
 \PASSWORD_BCRYPT:
-Save as CHAR(60)  (255 is the recomended width)
+Save as CHAR(60) (255 is the recomended width)
+
+\PASSWORD_ARGON2I:
+Save as ??
 ```
 
 ## httpd.conf
