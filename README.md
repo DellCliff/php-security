@@ -24,7 +24,8 @@ hash_equals($token_from_session, $token_from_request);
 
 ## Session
 
-Save and check IP address with session to prevent some hijacking.
+Save and check IP address with session to prevent some hijacking.  
+Maybe not to stay TOR compatible.  
 
 TODO: referer/origin checking although they can be spoofed!
 
