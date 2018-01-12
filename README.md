@@ -22,6 +22,8 @@ hash_equals($token_from_session, $token_from_request);
 
 Save and check IP address with session to prevent hijacking.
 
+TODO: referer/origin checking although they can be spoofed!
+
 ## Cookies
 
 Deleting cookies safely:  
@@ -45,6 +47,8 @@ Many new attack vectors rely on encoding bypassing. Use UTF-8 as your database a
 Use PDO and prepared statements.  
 Use white-listing instead of black-listing for table/column/LIMIT specifiers.  
 Don't rely on escaping input with mysql_real_escape_string or addslashes!
+
+TODO: hashing passwords
 
 ## httpd.conf
 
@@ -102,6 +106,7 @@ session.cookie_httponly = 1
 session.use_only_cookies= 1  
 session.cache_expire    = 30  
 session.use_strict_mode = 1  
+; Referer can be spoofed!  
 ;session.referer_check   = /application/path  
 session.bug_compat_42   = 0  
 session.bug_compat_warn = 1  
