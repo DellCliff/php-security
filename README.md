@@ -16,7 +16,7 @@ header("X-Content-Security-Policy: script-src 'self'; object-src 'none'");
 
 ## CSRF
 
-CSRF tokens on state changes (POST, ...), maybe plus CAPTCHAs.  
+CSRF tokens (one per user session) on state changes (POST, ...), maybe plus CAPTCHAs.  
 ```
 $csrf_token = random_bytes(64);  
 hash_equals($token_from_session, $token_from_request);
