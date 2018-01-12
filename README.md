@@ -53,7 +53,9 @@ TODO: hashing passwords
 ## httpd.conf
 
 ServerSignature Off  
-ServerTokens Prod
+ServerTokens Prod  
+
+TODO: MOAR!
 
 ## php.ini
 
@@ -110,3 +112,7 @@ session.use_strict_mode = 1
 ;session.referer_check   = /application/path  
 session.bug_compat_42   = 0  
 session.bug_compat_warn = 1  
+
+## .htaccess
+
+TODO: flags
