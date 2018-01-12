@@ -86,6 +86,8 @@ Save as ??
 255 is the recomended width
 ```
 
+Never save credit card information!
+
 ## httpd.conf
 
 ```
