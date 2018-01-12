@@ -2,30 +2,20 @@
 
 ## Headers
 
-header("X-Frame-Options: deny");
-
-header("Strict-Transport-Security: max-age=63072000; includeSubDomains");
-
-header("X-Content-Type-Options: nosniff");
-
-header("X-XSS-Protection: 1; mode=block");
-
-header("Referrer-Policy: no-referrer");
-
-header("X-Permitted-Cross-Domain-Policies: none");
-
-header("Content-Security-Policy: script-src 'self'; object-src 'none'");
-
-header("X-WebKit-CSP: script-src 'self'; object-src 'none'");
-
+header("X-Frame-Options: deny");  
+header("Strict-Transport-Security: max-age=63072000; includeSubDomains");  
+header("X-Content-Type-Options: nosniff");  
+header("X-XSS-Protection: 1; mode=block");  
+header("Referrer-Policy: no-referrer");  
+header("X-Permitted-Cross-Domain-Policies: none");  
+header("Content-Security-Policy: script-src 'self'; object-src 'none'");  
+header("X-WebKit-CSP: script-src 'self'; object-src 'none'");  
 header("X-Content-Security-Policy: script-src 'self'; object-src 'none'");
 
 ## CSRF
 
-CSRF tokens on state changes (POST, ...), maybe plus CAPTCHAs.
-
-$csrf_token = random_bytes(64);
-
+CSRF tokens on state changes (POST, ...), maybe plus CAPTCHAs.  
+$csrf_token = random_bytes(64);  
 hash_equals($token_from_session, $token_from_request);
 
 ## Session
@@ -34,39 +24,30 @@ Save and check IP address with session to prevent hijacking.
 
 ## Cookies
 
-Deleting cookies safely:
-
-setcookie ($name, "", 1);
-
-setcookie ($name, false);
-
+Deleting cookies safely:  
+setcookie ($name, "", 1);  
+setcookie ($name, false);  
 unset($_COOKIE[$name]);
 
-Cookies: set http-only, secure, path, domain
-
-$secure = true;
-
-$httponly = true;
-
+Cookies: set http-only, secure, path, domain  
+$secure = true;  
+$httponly = true;  
 setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
 
 ## Sanatizing
 
-For HTML: htmlspecialchars($data, \ENT_QUOTES, $encoding);
-
+For HTML: htmlspecialchars($data, \ENT_QUOTES, $encoding);  
 For URL: urlencode($data);
 
 ## Database
 
-Many new attack vectors rely on encoding bypassing. Use UTF-8 as your database and application charset unless you have a mandatory requirement to use another encoding.
-
-Use PDO and prepared statements. Use white-listing instead of black-listing for table/column/LIMIT specifiers.
-
+Many new attack vectors rely on encoding bypassing. Use UTF-8 as your database and application charset unless you have a mandatory requirement to use another encoding.  
+Use PDO and prepared statements. Use white-listing instead of black-listing for table/column/LIMIT specifiers.  
 Don't rely on escaping input with mysql_real_escape_string or addslashes!
 
 ## httpd.conf
 
-ServerSignature Off
+ServerSignature Off  
 ServerTokens Prod
 
 ## php.ini
