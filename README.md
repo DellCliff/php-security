@@ -24,7 +24,7 @@ hash_equals($token_from_session, $token_from_request);
 
 ## Session
 
-Save and check IP address with session to prevent hijacking.
+Save and check IP address with session to prevent some hijacking.
 
 TODO: referer/origin checking although they can be spoofed!
 
@@ -52,16 +52,16 @@ For URL: ```urlencode($data);```
 ## Database
 
 Many new attack vectors rely on encoding bypassing. Use UTF-8 as your database and application charset unless you have a mandatory requirement to use another encoding.  
-Use PDO and prepared statements!  
+Use PDO and prepared statements or stored procedures!  
 Use white-listing instead of black-listing for table/column/LIMIT specifiers!  
 Don't rely on escaping input with mysql_real_escape_string or addslashes!
 ```
-$limit = '10';
+$whitelisted_limit = '10';
 switch ($_GET['limit']) {
-    case '20': $limit = '20'; break;
-    case '30': $limit = '30'; break;
+    case '20': $whitelisted_limit = '20'; break;
+    case '30': $whitelisted_limit = '30'; break;
 }
-$sth = $dbh->prepare('SELECT name, colour FROM fruit WHERE colour = :colour LIMIT ' . $limit);
+$sth = $dbh->prepare('SELECT name, colour FROM fruit WHERE colour = :colour LIMIT ' . $whitelisted_limit);
 $sth->execute(array(':colour' => 'yellow'));
 ```
 Set connection to blow up on errors, and not let the script keep going silently.
@@ -148,7 +148,7 @@ TODO: MOAR!
     SecServerSignature ''  
 </ifModule>  
 ```
-TODO: flags
+TODO: flags maybe?
 
 
 ## php.ini
@@ -164,11 +164,13 @@ allow_url_fopen         = Off
 allow_url_include       = Off  
 variables_order         = "GPSE"  
 allow_webdav_methods    = Off  
-default_socket_timeout  = 60  
 magic_quotes_gpc        = Off  
 magic_quotes_runtime    = Off  
 register_globals        = 0  
+doc_root                = /path/DocumentRoot/PHP-scripts/  
+open_basedir            = /path/DocumentRoot/PHP-scripts/  
 
+default_socket_timeout  = 60  
 memory_limit            = 32M  
 post_max_size           = 32M  
 max_execution_time      = 60  
@@ -185,6 +187,7 @@ disable_functions       = system, exec, shell_exec, passthru, phpinfo, show_sour
 disable_functions       = fopen_with_path, dbmopen, dbase_open, putenv, move_uploaded_file  
 disable_functions       = chdir, mkdir, rmdir, chmod, rename  
 disable_functions       = filepro, filepro_rowcount, filepro_retrieve, posix_mkfifo  
+disable_function        = parse_ini_file, highlight_file, curl_exec, curl_multi_exec  
 ; Use prepared statements and white-listed table/column/LIMIT specifiers!  
 disable_functions       = addslashes, mysql_escape_string, mysql_real_escape_string  
 ; preg_replace executes payload!  
@@ -203,8 +206,8 @@ session.cookie_httponly = 1
 session.use_only_cookies= 1  
 session.cache_expire    = 30  
 session.use_strict_mode = 1  
-; Referer can be spoofed!  
-;session.referer_check   = /application/path  
+; Referer can be spoofed!   
+session.referer_check   = https://full.qualified.domain.name/application/path/  
 session.bug_compat_42   = 0  
 session.bug_compat_warn = 1  
 ```
