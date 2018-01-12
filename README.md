@@ -115,4 +115,22 @@ session.bug_compat_warn = 1
 
 ## .htaccess
 
+<ifModule mod_headers.c>  
+    Header set Referrer-Policy no-referrer  
+    Header set X-Frame-Options deny  
+    Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"  
+    Header set X-Content-Type-Options nosniff  
+    Header set X-XSS-Protection "1; mode=block"  
+    Header set X-Permitted-Cross-Domain-Policies none  
+    Header set Content-Security-Policy "script-src 'self'; object-src 'none'"  
+    Header set X-WebKit-CSP "script-src 'self'; object-src 'none'"  
+    Header set X-Content-Security-Policy "script-src 'self'; object-src 'none'"  
+    
+    Header unset X-Powered-By  
+</ifModule>  
+
+<ifModule ModSecurity.c>  
+    SecServerSignature ''  
+</ifModule>  
+
 TODO: flags
