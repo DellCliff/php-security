@@ -32,8 +32,8 @@ TODO: referer/origin checking although they can be spoofed!
 
 Deleting cookies safely:  
 ```
-setcookie ($name, "", 1);  
-setcookie ($name, false);  
+setcookie($name, "", 1);  
+setcookie($name, false);  
 unset($_COOKIE[$name]);
 ```
 
@@ -52,15 +52,58 @@ For URL: ```urlencode($data);```
 ## Database
 
 Many new attack vectors rely on encoding bypassing. Use UTF-8 as your database and application charset unless you have a mandatory requirement to use another encoding.  
-Use PDO and prepared statements.  
-Use white-listing instead of black-listing for table/column/LIMIT specifiers.  
+Use PDO and prepared statements!  
+Use white-listing instead of black-listing for table/column/LIMIT specifiers!  
 Don't rely on escaping input with mysql_real_escape_string or addslashes!
+```
+$limit = '10';
+switch ($_GET['limit']) {
+    case '20': $limit = '20'; break;
+    case '30': $limit = '30'; break;
+}
+$sth = $dbh->prepare('SELECT name, colour FROM fruit WHERE colour = :colour LIMIT ' . $limit);
+$sth->execute(array(':colour' => 'yellow'));
+```
 
-TODO: hashing passwords
+Hashing passwords:
+```
+password_hash($password, \PASSWORD_ARGON2I);
+or
+password_hash($password, \PASSWORD_BCRYPT);
+Using the PASSWORD_BCRYPT as the algorithm, will result in the password parameter being truncated to a maximum length of 72 characters.
+
+password_verify($password, $hash);
+
+Every now and then might need to strengthen hashing.
+password_needs_rehash($hash, \PASSWORD_ARGON2I);
+password_needs_rehash($hash, \PASSWORD_BCRYPT);
+Then prompt user to set a new password.
+
+\PASSWORD_BCRYPT:
+Save as CHAR(60)  (255 is the recomended width)
+```
 
 ## httpd.conf
 
 ```
+<ifModule mod_headers.c>  
+    Header set Referrer-Policy no-referrer  
+    Header set X-Frame-Options deny  
+    Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"  
+    Header set X-Content-Type-Options nosniff  
+    Header set X-XSS-Protection "1; mode=block"  
+    Header set X-Permitted-Cross-Domain-Policies none  
+    Header set Content-Security-Policy "script-src 'self'; object-src 'none'"  
+    Header set X-WebKit-CSP "script-src 'self'; object-src 'none'"  
+    Header set X-Content-Security-Policy "script-src 'self'; object-src 'none'"  
+    
+    Header unset X-Powered-By  
+</ifModule>  
+
+<ifModule ModSecurity.c>  
+    SecServerSignature ''  
+</ifModule>  
+
 ServerSignature Off  
 ServerTokens Prod  
 ```
