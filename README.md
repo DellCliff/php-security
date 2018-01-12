@@ -2,6 +2,7 @@
 
 ## Headers
 
+```
 header("X-Frame-Options: deny");  
 header("Strict-Transport-Security: max-age=63072000; includeSubDomains");  
 header("X-Content-Type-Options: nosniff");  
@@ -11,12 +12,15 @@ header("X-Permitted-Cross-Domain-Policies: none");
 header("Content-Security-Policy: script-src 'self'; object-src 'none'");  
 header("X-WebKit-CSP: script-src 'self'; object-src 'none'");  
 header("X-Content-Security-Policy: script-src 'self'; object-src 'none'");
+```
 
 ## CSRF
 
 CSRF tokens on state changes (POST, ...), maybe plus CAPTCHAs.  
+```
 $csrf_token = random_bytes(64);  
 hash_equals($token_from_session, $token_from_request);
+```
 
 ## Session
 
@@ -27,19 +31,23 @@ TODO: referer/origin checking although they can be spoofed!
 ## Cookies
 
 Deleting cookies safely:  
+```
 setcookie ($name, "", 1);  
 setcookie ($name, false);  
 unset($_COOKIE[$name]);
+```
 
 Cookies: set http-only, secure, path, domain  
+```
 $secure = true;  
 $httponly = true;  
 setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
+```
 
 ## Sanatizing
 
-For HTML: htmlspecialchars($data, \ENT_QUOTES, $encoding);  
-For URL: urlencode($data);
+For HTML: ```htmlspecialchars($data, \ENT_QUOTES, $encoding);```  
+For URL: ```urlencode($data);```
 
 ## Database
 
@@ -52,13 +60,16 @@ TODO: hashing passwords
 
 ## httpd.conf
 
+```
 ServerSignature Off  
 ServerTokens Prod  
+```
 
 TODO: MOAR!
 
 ## php.ini
 
+```
 expose_php              = Off  
 error_reporting         = E_ALL  
 display_errors          = Off  
@@ -112,6 +123,7 @@ session.use_strict_mode = 1
 ;session.referer_check   = /application/path  
 session.bug_compat_42   = 0  
 session.bug_compat_warn = 1  
+```
 
 ## .htaccess
 ```
