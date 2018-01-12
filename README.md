@@ -114,7 +114,7 @@ session.bug_compat_42   = 0
 session.bug_compat_warn = 1  
 
 ## .htaccess
-
+```
 <ifModule mod_headers.c>  
     Header set Referrer-Policy no-referrer  
     Header set X-Frame-Options deny  
@@ -132,5 +132,5 @@ session.bug_compat_warn = 1
 <ifModule ModSecurity.c>  
     SecServerSignature ''  
 </ifModule>  
-
+```
 TODO: flags
