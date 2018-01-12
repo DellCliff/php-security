@@ -77,10 +77,13 @@ password_needs_rehash($hash, \PASSWORD_ARGON2I); or password_needs_rehash($hash,
 Then prompt user to set a new password.
 
 \PASSWORD_BCRYPT:
-Save as CHAR(60) (255 is the recomended width)
+Save as CHAR(60)
 
 \PASSWORD_ARGON2I:
 Save as ??
+
+\PASSWORD_DEFAULT:
+255 is the recomended width
 ```
 
 ## httpd.conf
