@@ -235,5 +235,5 @@ session.use_trans_sid           = Off
 
 short_open_tag  = Off  
 track_errors    = Off  
-variables_order = "GPSE"  
+variables_order = "GPS"  
 ```
