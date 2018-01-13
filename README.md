@@ -132,7 +132,7 @@ ServerSignature Off
 ServerTokens Prod  
 ```
 
-TODO: MOAR!
+TODO: proxy flag
 
 
 ## .htaccess
@@ -161,7 +161,7 @@ TODO: MOAR!
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]  
 </ifModule>
 ```
-TODO: flags maybe?
+TODO: proxy flag, maybe php_flag
 
 
 ## php.ini
