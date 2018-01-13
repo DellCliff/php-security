@@ -3,15 +3,16 @@
 ## Headers
 
 ```
-header("X-Frame-Options: deny");  
+header("Referrer-Policy: no-referrer");  
 header("Strict-Transport-Security: max-age=63072000; includeSubDomains");  
 header("X-Content-Type-Options: nosniff");  
-header("X-XSS-Protection: 1; mode=block");  
-header("Referrer-Policy: no-referrer");  
+header("X-Frame-Options: deny");  
 header("X-Permitted-Cross-Domain-Policies: none");  
+header("X-XSS-Protection: 1; mode=block");  
+
 header("Content-Security-Policy: script-src 'self'; object-src 'none'");  
+header("X-Content-Security-Policy: script-src 'self'; object-src 'none'");  
 header("X-WebKit-CSP: script-src 'self'; object-src 'none'");  
-header("X-Content-Security-Policy: script-src 'self'; object-src 'none'");
 ```
 
 ## CSRF
@@ -106,14 +107,15 @@ Never save credit card information!
 ```
 <ifModule headers_module>  
     Header set Referrer-Policy no-referrer  
-    Header set X-Frame-Options deny  
     Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"  
     Header set X-Content-Type-Options nosniff  
-    Header set X-XSS-Protection "1; mode=block"  
+    Header set X-Frame-Options deny  
     Header set X-Permitted-Cross-Domain-Policies none  
+    Header set X-XSS-Protection "1; mode=block"  
+    
     Header set Content-Security-Policy "script-src 'self'; object-src 'none'"  
-    Header set X-WebKit-CSP "script-src 'self'; object-src 'none'"  
     Header set X-Content-Security-Policy "script-src 'self'; object-src 'none'"  
+    Header set X-WebKit-CSP "script-src 'self'; object-src 'none'"  
     
     Header unset X-Powered-By  
 </ifModule>  
@@ -139,14 +141,15 @@ TODO: proxy flag
 ```
 <ifModule mod_headers.c>  
     Header set Referrer-Policy no-referrer  
-    Header set X-Frame-Options deny  
     Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"  
     Header set X-Content-Type-Options nosniff  
-    Header set X-XSS-Protection "1; mode=block"  
+    Header set X-Frame-Options deny  
     Header set X-Permitted-Cross-Domain-Policies none  
+    Header set X-XSS-Protection "1; mode=block"  
+    
     Header set Content-Security-Policy "script-src 'self'; object-src 'none'"  
-    Header set X-WebKit-CSP "script-src 'self'; object-src 'none'"  
     Header set X-Content-Security-Policy "script-src 'self'; object-src 'none'"  
+    Header set X-WebKit-CSP "script-src 'self'; object-src 'none'"  
     
     Header unset X-Powered-By  
 </ifModule>  
