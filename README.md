@@ -170,6 +170,7 @@ TODO: proxy flag, maybe php_flag
 ## php.ini
 
 ```
+allow_call_time_pass_reference = Off
 allow_url_fopen        = Off  
 allow_url_include      = Off  
 allow_webdav_methods   = Off  
@@ -195,14 +196,18 @@ expose_php             = Off
 file_uploads           = Off  
 html_errors            = Off  
 ignore_repeated_errors = Off  
+ignore_repeated_source = Off  
 log_errors             = On  
 magic_quotes_gpc       = Off  
 magic_quotes_runtime   = Off  
+magic_quotes_sybase    = Off  
 max_execution_time     = 60  
 memory_limit           = 32M  
 open_basedir           = /path/DocumentRoot/PHP-scripts/  
 post_max_size          = 32M  
+register_argc_argv     = Off
 register_globals       = Off  
+register_long_arrays   = Off
 report_memleaks        = On  
 
 session.auto_start              = Off  
