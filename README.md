@@ -104,7 +104,7 @@ Never save credit card information!
 ## httpd.conf
 
 ```
-<ifModule mod_headers.c>  
+<ifModule headers_module>  
     Header set Referrer-Policy no-referrer  
     Header set X-Frame-Options deny  
     Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"  
@@ -121,6 +121,12 @@ Never save credit card information!
 <ifModule ModSecurity.c>  
     SecServerSignature ''  
 </ifModule>  
+
+<IfModule rewrite_module>  
+    RewriteEngine On  
+    RewriteCond %{HTTPS} off  
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]  
+</IfModule>
 
 ServerSignature Off  
 ServerTokens Prod  
@@ -148,6 +154,12 @@ TODO: MOAR!
 <ifModule ModSecurity.c>  
     SecServerSignature ''  
 </ifModule>  
+
+<ifModule mod_rewrite.c>  
+    RewriteEngine On  
+    RewriteCond %{HTTPS} off  
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]  
+</ifModule>
 ```
 TODO: flags maybe?
 
