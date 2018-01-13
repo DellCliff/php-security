@@ -197,7 +197,6 @@ frame-src 'none';\
 img-src 'self';\
 media-src 'self';\
 object-src 'none';\
-plugin-types '';\
 script-src 'self';\
 style-src 'self'"
     Header set X-Content-Security-Policy "\
@@ -212,7 +211,6 @@ frame-src 'none';\
 img-src 'self';\
 media-src 'self';\
 object-src 'none';\
-plugin-types '';\
 script-src 'self';\
 style-src 'self'"
     Header set X-WebKit-CSP "\
@@ -227,7 +225,6 @@ frame-src 'none';\
 img-src 'self';\
 media-src 'self';\
 object-src 'none';\
-plugin-types '';\
 script-src 'self';\
 style-src 'self'"
 
