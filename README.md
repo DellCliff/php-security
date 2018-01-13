@@ -107,7 +107,7 @@ Never save credit card information!
 ```
 <ifModule headers_module>
     Header set Referrer-Policy no-referrer
-    Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"
+    Header set Strict-Transport-Security "max-age=63072000;includeSubDomains"
     Header set X-Content-Type-Options nosniff
     Header set X-Frame-Options deny
     Header set X-Permitted-Cross-Domain-Policies none
@@ -179,7 +179,7 @@ TODO: proxy flag
 ```
 <ifModule mod_headers.c>
     Header set Referrer-Policy no-referrer
-    Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"
+    Header set Strict-Transport-Security "max-age=63072000;includeSubDomains"
     Header set X-Content-Type-Options nosniff
     Header set X-Frame-Options deny
     Header set X-Permitted-Cross-Domain-Policies none
