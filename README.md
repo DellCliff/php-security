@@ -180,9 +180,7 @@ disable_functions      = fopen_with_path, dbmopen, dbase_open, putenv, move_uplo
 disable_functions      = chdir, mkdir, rmdir, chmod, rename  
 disable_functions      = filepro, filepro_rowcount, filepro_retrieve, posix_mkfifo  
 disable_functions      = parse_ini_file, highlight_file, curl_exec, curl_multi_exec  
-; Use prepared statements and whitelisted table/column/LIMIT specifiers!  
 disable_functions      = addslashes, mysql_escape_string, mysql_real_escape_string  
-; preg_replace executes payload!  
 disable_functions      = preg_replace, ini_set  
 display_errors         = Off  
 display_startup_errors = Off  
