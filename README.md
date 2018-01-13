@@ -54,7 +54,7 @@ For URL: ```urlencode($data);```
 
 Many new attack vectors rely on encoding bypassing. Use UTF-8 as your database and application charset unless you have a mandatory requirement to use another encoding.  
 Use PDO and prepared statements or stored procedures!  
-Use white-listing instead of black-listing for table/column/LIMIT specifiers!  
+Use whitelisting instead of black-listing for table/column/LIMIT specifiers!  
 Don't rely on escaping input with mysql_real_escape_string or addslashes!
 ```
 $whitelisted_limit = '10';
@@ -189,7 +189,7 @@ disable_functions       = fopen_with_path, dbmopen, dbase_open, putenv, move_upl
 disable_functions       = chdir, mkdir, rmdir, chmod, rename  
 disable_functions       = filepro, filepro_rowcount, filepro_retrieve, posix_mkfifo  
 disable_function        = parse_ini_file, highlight_file, curl_exec, curl_multi_exec  
-; Use prepared statements and white-listed table/column/LIMIT specifiers!  
+; Use prepared statements and whitelisted table/column/LIMIT specifiers!  
 disable_functions       = addslashes, mysql_escape_string, mysql_real_escape_string  
 ; preg_replace executes payload!  
 disable_functions       = preg_replace, ini_set  
