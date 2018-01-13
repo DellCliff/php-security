@@ -136,7 +136,6 @@ ServerTokens Prod
 
 TODO: proxy flag
 
-
 ## .htaccess
 ```
 <ifModule mod_headers.c>  
@@ -166,27 +165,25 @@ TODO: proxy flag
 ```
 TODO: proxy flag, maybe php_flag
 
-
 ## php.ini
 
 ```
+[PHP]
 allow_call_time_pass_reference = Off
 allow_url_fopen        = Off  
 allow_url_include      = Off  
 allow_webdav_methods   = Off  
 asp_tags               = Off  
 default_socket_timeout = 60  
-
-disable_functions = system, exec, shell_exec, passthru, phpinfo, show_source, popen, proc_open  
-disable_functions = fopen_with_path, dbmopen, dbase_open, putenv, move_uploaded_file  
-disable_functions = chdir, mkdir, rmdir, chmod, rename  
-disable_functions = filepro, filepro_rowcount, filepro_retrieve, posix_mkfifo  
-disable_functions = parse_ini_file, highlight_file, curl_exec, curl_multi_exec  
+disable_functions      = system, exec, shell_exec, passthru, phpinfo, show_source, popen, proc_open  
+disable_functions      = fopen_with_path, dbmopen, dbase_open, putenv, move_uploaded_file  
+disable_functions      = chdir, mkdir, rmdir, chmod, rename  
+disable_functions      = filepro, filepro_rowcount, filepro_retrieve, posix_mkfifo  
+disable_functions      = parse_ini_file, highlight_file, curl_exec, curl_multi_exec  
 ; Use prepared statements and whitelisted table/column/LIMIT specifiers!  
-disable_functions = addslashes, mysql_escape_string, mysql_real_escape_string  
+disable_functions      = addslashes, mysql_escape_string, mysql_real_escape_string  
 ; preg_replace executes payload!  
-disable_functions = preg_replace, ini_set  
-
+disable_functions      = preg_replace, ini_set  
 display_errors         = Off  
 display_startup_errors = Off  
 doc_root               = /path/DocumentRoot/PHP-scripts/  
@@ -209,7 +206,13 @@ register_argc_argv     = Off
 register_globals       = Off  
 register_long_arrays   = Off
 report_memleaks        = On  
+request_order          = GP  
+short_open_tag         = Off  
+track_errors           = Off  
+variables_order        = GPCS  
+y2k_compliance         = On  
 
+[Session]
 session.auto_start              = Off  
 session.bug_compat_42           = Off  
 session.bug_compat_warn         = On  
@@ -232,8 +235,4 @@ session.use_cookies             = On
 session.use_only_cookies        = On  
 session.use_strict_mode         = On  
 session.use_trans_sid           = Off  
-
-short_open_tag  = Off  
-track_errors    = Off  
-variables_order = "GPS"  
 ```
