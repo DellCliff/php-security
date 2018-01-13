@@ -202,15 +202,16 @@ max_execution_time     = 60
 memory_limit           = 32M  
 open_basedir           = /path/DocumentRoot/PHP-scripts/  
 post_max_size          = 32M  
-register_globals       = 0  
+register_globals       = Off  
 report_memleaks        = On  
 
 session.auto_start              = Off  
-session.bug_compat_42           = 0  
-session.bug_compat_warn         = 1  
+session.bug_compat_42           = Off  
+session.bug_compat_warn         = On  
 session.cache_expire            = 30  
+session.cache_limiter           = nocache  
 session.cookie_domain           = full.qualified.domain.name  
-session.cookie_httponly         = 1  
+session.cookie_httponly         = On  
 session.cookie_lifetime         = 0  
 session.cookie_path             = /application/path/  
 session.cookie_secure           = On  
@@ -219,9 +220,13 @@ session.hash_function           = 1
 session.name                    = myPHPSESSID  
 ; Referer can be spoofed!   
 session.referer_check           = https://full.qualified.domain.name/application/path/  
-session.use_only_cookies        = 1  
-session.use_strict_mode         = 1  
-session.use_trans_sid           = 0  
+session.sid_bits_per_character  = 6  
+session.sid_length              = 48  
+session.trans_sid_tags          =  
+session.use_cookies             = On  
+session.use_only_cookies        = On  
+session.use_strict_mode         = On  
+session.use_trans_sid           = Off  
 
 short_open_tag  = Off  
 track_errors    = Off  
