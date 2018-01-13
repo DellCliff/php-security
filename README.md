@@ -3,23 +3,23 @@
 ## Headers
 
 ```
-header("Referrer-Policy: no-referrer");  
-header("Strict-Transport-Security: max-age=63072000; includeSubDomains");  
-header("X-Content-Type-Options: nosniff");  
-header("X-Frame-Options: deny");  
-header("X-Permitted-Cross-Domain-Policies: none");  
-header("X-XSS-Protection: 1; mode=block");  
+header("Referrer-Policy: no-referrer");
+header("Strict-Transport-Security: max-age=63072000; includeSubDomains");
+header("X-Content-Type-Options: nosniff");
+header("X-Frame-Options: deny");
+header("X-Permitted-Cross-Domain-Policies: none");
+header("X-XSS-Protection: 1; mode=block");
 
-header("Content-Security-Policy: script-src 'self'; object-src 'none'");  
-header("X-Content-Security-Policy: script-src 'self'; object-src 'none'");  
-header("X-WebKit-CSP: script-src 'self'; object-src 'none'");  
+header("Content-Security-Policy: script-src 'self'; object-src 'none'");
+header("X-Content-Security-Policy: script-src 'self'; object-src 'none'");
+header("X-WebKit-CSP: script-src 'self'; object-src 'none'");
 ```
 
 ## CSRF
 
 CSRF tokens (one per user session) on state changes (POST, ...), maybe plus CAPTCHAs.  
 ```
-$csrf_token = random_bytes(64);  
+$csrf_token = random_bytes(64);
 hash_equals($token_from_session, $token_from_request);
 ```
 
@@ -34,15 +34,15 @@ TODO: referer/origin checking although they can be spoofed!
 
 Deleting cookies safely:  
 ```
-setcookie($name, "", 1);  
-setcookie($name, false);  
+setcookie($name, "", 1);
+setcookie($name, false);
 unset($_COOKIE[$name]);
 ```
 
 Setting cookies:
 ```
-$secure = true;  
-$httponly = true;  
+$secure = true;
+$httponly = true;
 setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
 ```
 
@@ -105,62 +105,146 @@ Never save credit card information!
 ## httpd.conf
 
 ```
-<ifModule headers_module>  
-    Header set Referrer-Policy no-referrer  
-    Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"  
-    Header set X-Content-Type-Options nosniff  
-    Header set X-Frame-Options deny  
-    Header set X-Permitted-Cross-Domain-Policies none  
-    Header set X-XSS-Protection "1; mode=block"  
-    
-    Header set Content-Security-Policy "script-src 'self'; object-src 'none'"  
-    Header set X-Content-Security-Policy "script-src 'self'; object-src 'none'"  
-    Header set X-WebKit-CSP "script-src 'self'; object-src 'none'"  
-    
-    Header unset X-Powered-By  
-</ifModule>  
+<ifModule headers_module>
+    Header set Referrer-Policy no-referrer
+    Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"
+    Header set X-Content-Type-Options nosniff
+    Header set X-Frame-Options deny
+    Header set X-Permitted-Cross-Domain-Policies none
+    Header set X-XSS-Protection "1; mode=block"
 
-<ifModule ModSecurity.c>  
-    SecServerSignature ''  
-</ifModule>  
+    Header set Content-Security-Policy "\
+base-uri 'self';\
+child-src 'none';\
+connect-src 'self';\
+default-src 'self';\
+font-src 'self';\
+form-action 'self';\
+frame-ancestors 'none';\
+frame-src 'none';\
+img-src 'self';\
+media-src 'self';\
+object-src 'none';\
+plugin-types '';\
+script-src 'self';\
+style-src 'self'"
+    Header set X-Content-Security-Policy "\
+base-uri 'self';\
+child-src 'none';\
+connect-src 'self';\
+default-src 'self';\
+font-src 'self';\
+form-action 'self';\
+frame-ancestors 'none';\
+frame-src 'none';\
+img-src 'self';\
+media-src 'self';\
+object-src 'none';\
+plugin-types '';\
+script-src 'self';\
+style-src 'self'"
+    Header set X-WebKit-CSP "\
+base-uri 'self';\
+child-src 'none';\
+connect-src 'self';\
+default-src 'self';\
+font-src 'self';\
+form-action 'self';\
+frame-ancestors 'none';\
+frame-src 'none';\
+img-src 'self';\
+media-src 'self';\
+object-src 'none';\
+plugin-types '';\
+script-src 'self';\
+style-src 'self'"
 
-<IfModule rewrite_module>  
-    RewriteEngine On  
-    RewriteCond %{HTTPS} off  
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]  
+    Header unset X-Powered-By
+</ifModule>
+
+<ifModule ModSecurity.c>
+    SecServerSignature ''
+</ifModule>
+
+<IfModule rewrite_module>
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
 
-ServerSignature Off  
-ServerTokens Prod  
+ServerSignature Off
+ServerTokens Prod
 ```
 
 TODO: proxy flag
 
 ## .htaccess
 ```
-<ifModule mod_headers.c>  
-    Header set Referrer-Policy no-referrer  
-    Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"  
-    Header set X-Content-Type-Options nosniff  
-    Header set X-Frame-Options deny  
-    Header set X-Permitted-Cross-Domain-Policies none  
-    Header set X-XSS-Protection "1; mode=block"  
-    
-    Header set Content-Security-Policy "script-src 'self'; object-src 'none'"  
-    Header set X-Content-Security-Policy "script-src 'self'; object-src 'none'"  
-    Header set X-WebKit-CSP "script-src 'self'; object-src 'none'"  
-    
-    Header unset X-Powered-By  
-</ifModule>  
+<ifModule mod_headers.c>
+    Header set Referrer-Policy no-referrer
+    Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"
+    Header set X-Content-Type-Options nosniff
+    Header set X-Frame-Options deny
+    Header set X-Permitted-Cross-Domain-Policies none
+    Header set X-XSS-Protection "1; mode=block"
 
-<ifModule ModSecurity.c>  
-    SecServerSignature ''  
-</ifModule>  
+    Header set Content-Security-Policy "\
+base-uri 'self';\
+child-src 'none';\
+connect-src 'self';\
+default-src 'self';\
+font-src 'self';\
+form-action 'self';\
+frame-ancestors 'none';\
+frame-src 'none';\
+img-src 'self';\
+media-src 'self';\
+object-src 'none';\
+plugin-types '';\
+script-src 'self';\
+style-src 'self'"
+    Header set X-Content-Security-Policy "\
+base-uri 'self';\
+child-src 'none';\
+connect-src 'self';\
+default-src 'self';\
+font-src 'self';\
+form-action 'self';\
+frame-ancestors 'none';\
+frame-src 'none';\
+img-src 'self';\
+media-src 'self';\
+object-src 'none';\
+plugin-types '';\
+script-src 'self';\
+style-src 'self'"
+    Header set X-WebKit-CSP "\
+base-uri 'self';\
+child-src 'none';\
+connect-src 'self';\
+default-src 'self';\
+font-src 'self';\
+form-action 'self';\
+frame-ancestors 'none';\
+frame-src 'none';\
+img-src 'self';\
+media-src 'self';\
+object-src 'none';\
+plugin-types '';\
+script-src 'self';\
+style-src 'self'"
 
-<ifModule mod_rewrite.c>  
-    RewriteEngine On  
-    RewriteCond %{HTTPS} off  
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]  
+    Header unset X-Powered-By
+</ifModule>
+
+<ifModule ModSecurity.c>
+    SecServerSignature ''
+</ifModule>
+
+<ifModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </ifModule>
 ```
 TODO: proxy flag, maybe php_flag
@@ -170,67 +254,66 @@ TODO: proxy flag, maybe php_flag
 ```
 [PHP]
 allow_call_time_pass_reference = Off
-allow_url_fopen        = Off  
-allow_url_include      = Off  
-allow_webdav_methods   = Off  
-asp_tags               = Off  
-default_socket_timeout = 60  
-disable_functions      = system, exec, shell_exec, passthru, phpinfo, show_source, popen, proc_open  
-disable_functions      = fopen_with_path, dbmopen, dbase_open, putenv, move_uploaded_file  
-disable_functions      = chdir, mkdir, rmdir, chmod, rename  
-disable_functions      = filepro, filepro_rowcount, filepro_retrieve, posix_mkfifo  
-disable_functions      = parse_ini_file, highlight_file, curl_exec, curl_multi_exec  
-disable_functions      = addslashes, mysql_escape_string, mysql_real_escape_string  
-disable_functions      = preg_replace, ini_set  
-display_errors         = Off  
-display_startup_errors = Off  
-doc_root               = /path/DocumentRoot/PHP-scripts/  
-enable_dl              = Off  
-error_reporting        = E_ALL  
-expose_php             = Off  
-file_uploads           = Off  
-html_errors            = Off  
-ignore_repeated_errors = Off  
-ignore_repeated_source = Off  
-log_errors             = On  
-magic_quotes_gpc       = Off  
-magic_quotes_runtime   = Off  
-magic_quotes_sybase    = Off  
-max_execution_time     = 60  
-memory_limit           = 32M  
-open_basedir           = /path/DocumentRoot/PHP-scripts/  
-post_max_size          = 32M  
+allow_url_fopen        = Off
+allow_url_include      = Off
+allow_webdav_methods   = Off
+asp_tags               = Off
+default_socket_timeout = 60
+disable_functions      = system, exec, shell_exec, passthru, phpinfo, show_source, popen, proc_open
+disable_functions      = fopen_with_path, dbmopen, dbase_open, putenv, move_uploaded_file
+disable_functions      = chdir, mkdir, rmdir, chmod, rename
+disable_functions      = filepro, filepro_rowcount, filepro_retrieve, posix_mkfifo
+disable_functions      = parse_ini_file, highlight_file, curl_exec, curl_multi_exec
+disable_functions      = addslashes, mysql_escape_string, mysql_real_escape_string
+disable_functions      = preg_replace, ini_set
+display_errors         = Off
+display_startup_errors = Off
+doc_root               = /path/DocumentRoot/PHP-scripts/
+enable_dl              = Off
+error_reporting        = E_ALL
+expose_php             = Off
+file_uploads           = Off
+html_errors            = Off
+ignore_repeated_errors = Off
+ignore_repeated_source = Off
+log_errors             = On
+magic_quotes_gpc       = Off
+magic_quotes_runtime   = Off
+magic_quotes_sybase    = Off
+max_execution_time     = 60
+memory_limit           = 32M
+open_basedir           = /path/DocumentRoot/PHP-scripts/
+post_max_size          = 32M
 register_argc_argv     = Off
-register_globals       = Off  
+register_globals       = Off
 register_long_arrays   = Off
-report_memleaks        = On  
-request_order          = GP  
-short_open_tag         = Off  
-track_errors           = Off  
-variables_order        = GPCS  
-y2k_compliance         = On  
+report_memleaks        = On
+request_order          = GP
+short_open_tag         = Off
+track_errors           = Off
+variables_order        = GPCS
+y2k_compliance         = On
 
 [Session]
-session.auto_start              = Off  
-session.bug_compat_42           = Off  
-session.bug_compat_warn         = On  
-session.cache_expire            = 30  
-session.cache_limiter           = nocache  
-session.cookie_domain           = full.qualified.domain.name  
-session.cookie_httponly         = On  
-session.cookie_lifetime         = 0  
-session.cookie_path             = /application/path/  
-session.cookie_secure           = On  
-session.hash_bits_per_character = 6  
-session.hash_function           = 1  
-session.name                    = myPHPSESSID  
-; Referer can be spoofed!   
-session.referer_check           = https://full.qualified.domain.name/application/path/  
-session.sid_bits_per_character  = 6  
-session.sid_length              = 48  
-session.trans_sid_tags          =  
-session.use_cookies             = On  
-session.use_only_cookies        = On  
-session.use_strict_mode         = On  
-session.use_trans_sid           = Off  
+session.auto_start              = Off
+session.bug_compat_42           = Off
+session.bug_compat_warn         = On
+session.cache_expire            = 30
+session.cache_limiter           = nocache
+session.cookie_domain           = full.qualified.domain.name
+session.cookie_httponly         = On
+session.cookie_lifetime         = 0
+session.cookie_path             = /application/path/
+session.cookie_secure           = On
+session.hash_bits_per_character = 6
+session.hash_function           = 1
+session.name                    = myPHPSESSID
+session.referer_check           = https://full.qualified.domain.name/application/path/
+session.sid_bits_per_character  = 6
+session.sid_length              = 48
+session.trans_sid_tags          =
+session.use_cookies             = On
+session.use_only_cookies        = On
+session.use_strict_mode         = On
+session.use_trans_sid           = Off
 ```
