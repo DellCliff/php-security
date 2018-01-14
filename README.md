@@ -284,18 +284,18 @@ php_flag  session.bug_compat_42           Off
 php_flag  session.bug_compat_warn         On
 php_value session.cache_expire            30
 php_value session.cache_limiter           nocache
-#php_value session.cookie_domain           full.qualified.domain.name
+php_value session.cookie_domain           full.qualified.domain.name
 php_flag  session.cookie_httponly         On
 php_value session.cookie_lifetime         0
-#php_value session.cookie_path             /application/path/
+php_value session.cookie_path             /application/path/
 php_flag  session.cookie_secure           On
 php_value session.hash_bits_per_character 6
 php_value session.hash_function           1
 php_value session.name                    myPHPSESSID
-#php_value session.referer_check           https://full.qualified.domain.name/application/path/
+php_value session.referer_check           https://full.qualified.domain.name/application/path/
 php_value session.sid_bits_per_character  6
 php_value session.sid_length              48
-#php_value session.trans_sid_tags          ""
+#php_value session.trans_sid_tags
 php_flag  session.use_cookies             On
 php_flag  session.use_only_cookies        On
 php_flag  session.use_strict_mode         On
