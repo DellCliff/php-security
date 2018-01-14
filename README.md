@@ -240,6 +240,66 @@ style-src 'self'"
     RewriteCond %{HTTPS} off
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </ifModule>
+
+php_flag  allow_call_time_pass_reference Off
+php_flag  allow_url_fopen        Off
+php_flag  allow_url_include      Off
+php_flag  allow_webdav_methods   Off
+php_flag  asp_tags               Off
+php_value default_socket_timeout 60
+php_value disable_functions      "system, exec, shell_exec, passthru, phpinfo, show_source, popen, proc_open"
+php_value disable_functions      "fopen_with_path, dbmopen, dbase_open, putenv, move_uploaded_file"
+php_value disable_functions      "chdir, mkdir, rmdir, chmod, rename"
+php_value disable_functions      "filepro, filepro_rowcount, filepro_retrieve, posix_mkfifo"
+php_value disable_functions      "highlight_file, curl_exec, curl_multi_exec"
+php_value disable_functions      "addslashes, mysql_escape_string, mysql_real_escape_string"
+php_value disable_functions      "preg_replace, ini_set"
+php_flag  display_errors         Off
+php_flag  display_startup_errors Off
+php_value error_reporting        E_ALL
+php_flag  expose_php             Off
+php_flag  file_uploads           Off
+php_flag  html_errors            Off
+php_flag  ignore_repeated_errors Off
+php_flag  ignore_repeated_source Off
+php_flag  log_errors             On
+php_flag  magic_quotes_gpc       Off
+php_flag  magic_quotes_runtime   Off
+php_flag  magic_quotes_sybase    Off
+php_value max_execution_time     60
+php_value memory_limit           32M
+php_value post_max_size          32M
+php_flag  register_argc_argv     Off
+php_flag  register_globals       Off
+php_flag  register_long_arrays   Off
+php_flag  report_memleaks        On
+php_value request_order          GP
+php_flag  short_open_tag         Off
+php_flag  track_errors           Off
+php_value variables_order        GPCS
+php_flag  y2k_compliance         On
+
+php_flag  session.auto_start              Off
+php_flag  session.bug_compat_42           Off
+php_flag  session.bug_compat_warn         On
+php_value session.cache_expire            30
+php_value session.cache_limiter           nocache
+#php_value session.cookie_domain           full.qualified.domain.name
+php_flag  session.cookie_httponly         On
+php_value session.cookie_lifetime         0
+#php_value session.cookie_path             /application/path/
+php_flag  session.cookie_secure           On
+php_value session.hash_bits_per_character 6
+php_value session.hash_function           1
+php_value session.name                    myPHPSESSID
+#php_value session.referer_check           https://full.qualified.domain.name/application/path/
+php_value session.sid_bits_per_character  6
+php_value session.sid_length              48
+#php_value session.trans_sid_tags          ""
+php_flag  session.use_cookies             On
+php_flag  session.use_only_cookies        On
+php_flag  session.use_strict_mode         On
+php_flag  session.use_trans_sid           Off
 ```
 TODO: proxy flag, maybe php_flag
 
