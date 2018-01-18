@@ -43,6 +43,9 @@ unset($_COOKIE[$name]);
 
 Setting cookies:
 ```
+$expire = 0;
+$path = "/application/path/";
+$domain = "full.qualified.domain.name";
 $secure = true;
 $httponly = true;
 setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
