@@ -1,5 +1,7 @@
 # php-security
 
+Mostly researched on owasp.org and php.com.  
+
 ## Headers
 
 ```
