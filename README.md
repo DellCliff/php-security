@@ -9,10 +9,13 @@ https://www.owasp.org/index.php/PHP_CSRF_Guard
 https://www.owasp.org/index.php/PHP_Security_for_Developers  
 https://www.owasp.org/index.php/OWASP_PHP_Security_Project  
 https://www.owasp.org/images/6/6b/PHPMagicTricks-TypeJuggling.pdf  
+https://www.owasp.org/index.php/PHP_Configuration_Cheat_Sheet  
+https://www.owasp.org/index.php/PHP_Project_Authentication  
 
 PHP.net:  
 http://php.net/manual/en/session.security.php  
 http://php.net/manual/en/security.php  
+http://php.net/security-note.php  
 
 Articles about attacks:  
 https://blog.ripstech.com/2018/cubecart-admin-authentication-bypass/  
