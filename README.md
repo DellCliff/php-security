@@ -21,6 +21,8 @@ Articles about attacks:
 https://blog.ripstech.com/2018/cubecart-admin-authentication-bypass/  
 http://www.acros.si/papers/session_fixation.pdf  
 
+TODO: proxy flag, directory/file exclude .inc  
+
 ## Headers
 
 ```
@@ -126,7 +128,7 @@ Save as ??
 
 Never save credit card information!
 
-## httpd.conf
+## httpd.conf or .htaccess
 
 ```
 <ifModule headers_module>
@@ -192,79 +194,17 @@ style-src 'self'"
     RewriteCond %{HTTPS} off
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
+```
 
+## httpd.conf
+
+```
 ServerSignature Off
 ServerTokens Prod
 ```
 
-TODO: proxy flag
-
 ## .htaccess
 ```
-<ifModule mod_headers.c>
-    Header set Referrer-Policy no-referrer
-    Header set Strict-Transport-Security "max-age=63072000;includeSubDomains"
-    Header set X-Content-Type-Options nosniff
-    Header set X-Frame-Options deny
-    Header set X-Permitted-Cross-Domain-Policies none
-    Header set X-XSS-Protection "1; mode=block"
-
-    Header set Content-Security-Policy "\
-base-uri 'self';\
-child-src 'none';\
-connect-src 'self';\
-default-src 'self';\
-font-src 'self';\
-form-action 'self';\
-frame-ancestors 'none';\
-frame-src 'none';\
-img-src 'self';\
-media-src 'self';\
-object-src 'none';\
-script-src 'self';\
-style-src 'self'"
-    Header set X-Content-Security-Policy "\
-base-uri 'self';\
-child-src 'none';\
-connect-src 'self';\
-default-src 'self';\
-font-src 'self';\
-form-action 'self';\
-frame-ancestors 'none';\
-frame-src 'none';\
-img-src 'self';\
-media-src 'self';\
-object-src 'none';\
-script-src 'self';\
-style-src 'self'"
-    Header set X-WebKit-CSP "\
-base-uri 'self';\
-child-src 'none';\
-connect-src 'self';\
-default-src 'self';\
-font-src 'self';\
-form-action 'self';\
-frame-ancestors 'none';\
-frame-src 'none';\
-img-src 'self';\
-media-src 'self';\
-object-src 'none';\
-script-src 'self';\
-style-src 'self'"
-
-    Header unset X-Powered-By
-</ifModule>
-
-<ifModule ModSecurity.c>
-    SecServerSignature ''
-</ifModule>
-
-<ifModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteCond %{HTTPS} off
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-</ifModule>
-
 php_flag  allow_call_time_pass_reference Off
 php_flag  allow_url_fopen        Off
 php_flag  allow_url_include      Off
@@ -325,7 +265,6 @@ php_flag  session.use_only_cookies        On
 php_flag  session.use_strict_mode         On
 php_flag  session.use_trans_sid           Off
 ```
-TODO: proxy flag, maybe php_flag
 
 ## php.ini
 
