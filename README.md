@@ -220,7 +220,7 @@ php_value disable_functions      "addslashes, mysql_escape_string, mysql_real_es
 php_value disable_functions      "preg_replace, ini_set"
 php_flag  display_errors         Off
 php_flag  display_startup_errors Off
-php_value error_reporting        E_ALL
+php_value error_reporting        -1
 php_flag  expose_php             Off
 php_flag  file_uploads           Off
 php_flag  html_errors            Off
