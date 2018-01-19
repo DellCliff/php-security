@@ -1,6 +1,22 @@
 # php-security
 
-Mostly researched on owasp.org and php.com.  
+OWASP.org:  
+https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet  
+https://www.owasp.org/index.php/PHP_Object_Injection  
+https://www.owasp.org/index.php/Code_Injection  
+https://www.owasp.org/index.php/PHP_Top_5  
+https://www.owasp.org/index.php/PHP_CSRF_Guard  
+https://www.owasp.org/index.php/PHP_Security_for_Developers  
+https://www.owasp.org/index.php/OWASP_PHP_Security_Project  
+https://www.owasp.org/images/6/6b/PHPMagicTricks-TypeJuggling.pdf  
+
+PHP.net:  
+http://php.net/manual/en/session.security.php  
+http://php.net/manual/en/security.php  
+
+Articles about attacks:  
+https://blog.ripstech.com/2018/cubecart-admin-authentication-bypass/  
+http://www.acros.si/papers/session_fixation.pdf  
 
 ## Headers
 
