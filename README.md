@@ -1,5 +1,7 @@
 # php-security
 
+https://infosec.mozilla.org/guidelines/web_security  
+
 OWASP.org:  
 https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet  
 https://www.owasp.org/index.php/PHP_Object_Injection  
