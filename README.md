@@ -18,6 +18,7 @@ PHP.net:
 http://php.net/manual/en/session.security.php  
 http://php.net/manual/en/security.php  
 http://php.net/security-note.php  
+http://php.net/manual/en/faq.passwords.php  
 
 Articles about attacks:  
 https://blog.ripstech.com/2018/cubecart-admin-authentication-bypass/  
@@ -110,7 +111,8 @@ or
 Using the PASSWORD_BCRYPT as the algorithm, will result in the password parameter being truncated to a maximum length of 72 characters.
 
 Check passwords:
-```password_verify($password, $hash);```
+```password_verify($password, $hash);```  
+Will perform constant time comparison, thus guarding against timing attacks.  
 
 Every now and then it is necessary to strengthen the hashing process.  
 ```password_needs_rehash($hash, \PASSWORD_ARGON2I);```  
@@ -119,13 +121,13 @@ or
 Then prompt user to set a new password.
 
 \PASSWORD_BCRYPT:
-Save as CHAR(60)
+Save as CHAR(60), CHAR(72) ??
 
 \PASSWORD_ARGON2I:
-Save as ??
+Save as VARCHAR(255), CHAR(255) ??
 
 \PASSWORD_DEFAULT:
-255 is the recomended width
+255 characters is the recomended width. VARCHAR(255), CHAR(255) ??
 
 
 Never save credit card information!
